@@ -11,7 +11,7 @@ app.use(express.json());
 
 
 app.get('/', (req, res) => {
-    res.send('Tourism Server Running');
+    res.send('Tourism Server Running successfull');
 });
 
 app.listen(port, () => {
