@@ -50,6 +50,19 @@ async function run () {
             res.send(register);
         })
 
+        //GET Register
+        app.get('/register', async (req, res) => {
+            const allregister = await registerCollection.find({}).toArray();
+            res.send(allregister);
+        })
+
+        //Register Delete
+        app.delete('/register/:id', async (req, res) => {
+            const id = req.params.id;
+            const regDelete = await registerCollection.deleteOne({_id: ObjectId(id)});
+            res.send(regDelete);
+        })
+
         //DELETE 
         app.delete('/services/:id', async (req, res) => {
             const id = req.params.id;
