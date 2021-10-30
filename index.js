@@ -49,7 +49,6 @@ async function run () {
             const register = await registerCollection.insertOne(req.body);
             res.send(register);
         })
-
         //GET Register
         app.get('/register', async (req, res) => {
             const allregister = await registerCollection.find({}).toArray();
