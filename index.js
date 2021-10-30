@@ -23,6 +23,7 @@ async function run () {
         const database = client.db('tourism');
         const servicesCollection = database.collection('services');
         const registerCollection = database.collection('register');
+        const orderCollection = database.collection('order');
 
         app.get('/services', async (req, res) => {
             const cursor = servicesCollection.find({});
@@ -36,6 +37,17 @@ async function run () {
             const query = {_id: ObjectId(id)}
             const booking = await servicesCollection.findOne(query);
             res.send(booking);
+        })
+
+        // post order 
+        app.post('/order', async (req, res) => {
+            const order = await orderCollection.insertOne(req.body);
+            res.send(order);
+        })
+        //get order
+        app.get('/order', async (req, res) => {
+            const order = await orderCollection.find({}).toArray();
+            res.send(order);
         })
 
         // add services 
@@ -60,6 +72,13 @@ async function run () {
             const id = req.params.id;
             const regDelete = await registerCollection.deleteOne({_id: ObjectId(id)});
             res.send(regDelete);
+        })
+
+        //Delete order
+        app.delete('/order/:id', async (req, res) => {
+            const id = req.params.id;
+            const deleteOrder = await orderCollection.deleteOne({_id: ObjectId(id)});
+            res.send(deleteOrder);
         })
 
         //DELETE 
